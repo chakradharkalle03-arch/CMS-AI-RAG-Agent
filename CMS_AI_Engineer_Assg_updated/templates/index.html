@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Management AI Assistant</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #27ae60;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/static/carbon_management_solutions_cms_logo.jfif') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+        
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .ai-badge {
+            background: var(--accent);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .welcome-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-text h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .welcome-text p {
+            color: var(--dark);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .upload-section {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .upload-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .file-info {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px dashed var(--secondary);
+        }
+        
+        .form-container {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 16px;
+        }
+        
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .file-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            background: white;
+            margin-bottom: 15px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background: #dfe6e9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .examples {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 2px dashed var(--secondary);
+        }
+        
+        .examples h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .example-list {
+            list-style: none;
+        }
+        
+        .example-list li {
+            padding: 10px 15px;
+            margin: 8px 0;
+            background: var(--light);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .example-list li:hover {
+            background: #dfe6e9;
+            transform: translateX(5px);
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .success {
+            background: #d5f5e3;
+            color: #27ae60;
+            border: 2px solid #27ae60;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--dark);
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .main-content {
+                padding: 25px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌱</div>
+            <h1>Carbon Management AI Assistant</h1>
+            <p>Intelligent Q&A System Powered by RAG Technology</p>
+            <span class="ai-badge">AI Powered</span>
+        </div>
+        
+        <div class="main-content">
+            {% if message %}
+            <div class="message success">
+                {{ message }}
+            </div>
+            {% endif %}
+            
+            <div class="upload-section">
+                <h3>📁 Upload Document</h3>
+                <p>Upload an Excel or PDF file to build the knowledge base:</p>
+                
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" class="file-input" accept=".xlsx,.xls,.pdf" required>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-success">
+                            <span>📤</span> Upload & Process
+                        </button>
+                    </div>
+                </form>
+                
+                {% if current_file %}
+                <div class="file-info">
+                    <strong>Current Knowledge Base:</strong> {{ current_file }}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="welcome-text">
+                <h2>Ask Questions</h2>
+                <p>Ask any question about the uploaded document, and our AI will provide accurate answers using RAG technology.</p>
+            </div>
+            
+            <!-- Updated form-container block with examples -->
+            <div class="form-container">
+                <form action="/ask" method="post">
+                    <div class="form-group">
+                        <label for="question">Enter your question:</label>
+                        <textarea id="question" name="question" required 
+                                  placeholder="Example: How to reset password?"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            <span>🔍</span> Ask Question
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <span>🔄</span> Clear
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="examples">
+                <h3>💡 Example Questions</h3>
+                <ul class="example-list">
+                    <li>How do I reset my account password?</li>
+                    <li>What emission factor is recommended?</li>
+                    <li>How to upload a new sustainability report?</li>
+                </ul>
+            </div>
+        
+        <div class="footer">
+            <p>Powered by Gemini AI • RAG Technology • FastAPI</p>
+            <p>© 2024 Carbon Management System</p>
+        </div>
+    </div>
+
+    <script>
+        // Add click functionality to example questions
+        document.querySelectorAll('.example-list li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.getElementById('question').value = this.textContent;
+                document.getElementById('question').focus();
+            });
+        });
+    </script>
+</body>
+</html>

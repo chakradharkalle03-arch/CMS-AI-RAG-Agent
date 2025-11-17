@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Results - Carbon Management System</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #27ae60;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/static/carbon_management_solutions_cms_logo.jfif') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin:20px auto; background:white; border-radius:20px;
+                     box-shadow:0 20px 40px rgba(0,0,0,0.15); overflow:hidden; }
+        .header { background:linear-gradient(135deg,var(--primary) 0%,var(--dark) 100%);
+                  color:white; padding:30px; text-align:center; }
+        .logo { font-size:48px; margin-bottom:15px; }
+        .ai-badge { background:var(--accent); color:white; padding:6px 16px; border-radius:20px;
+                    font-size:14px; font-weight:600; display:inline-block; margin-top:10px; }
+        .main-content { padding:40px; }
+        .result-section { margin-bottom:30px; }
+        .section-title { color:var(--primary); margin-bottom:15px; font-size:20px; display:flex; align-items:center; gap:10px; }
+        .content-box { background:var(--light); padding:25px; border-radius:12px; margin-bottom:20px; border-left:4px solid; }
+        .question-box { border-left-color:var(--secondary); }
+        .answer-box { border-left-color:var(--success); }
+        .content-box p { margin:0; line-height:1.8; font-size:16px; color:var(--dark); white-space:pre-wrap; }
+        .sources { margin-top:20px; }
+        .source-item { padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px; background:#f9f9f9; }
+        .confidence-badge { display:inline-block; padding:6px 12px; border-radius:15px;
+                            font-size:12px; font-weight:600; margin-left:10px; background:var(--success); color:white; }
+        .action-buttons { display:flex; gap:15px; justify-content:center; margin-top:30px; flex-wrap:wrap; }
+        .btn { padding:14px 28px; border:none; border-radius:10px; font-size:16px; font-weight:600;
+               cursor:pointer; transition:all .3s ease; text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+        .btn-primary { background:var(--secondary); color:white; }
+        .btn-primary:hover { background:#2980b9; transform:translateY(-2px);
+                             box-shadow:0 8px 20px rgba(52,152,219,0.3); }
+        .footer { text-align:center; padding:20px; color:var(--dark); font-size:14px; border-top:1px solid #eee; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo">🌱</div>
+        <h1>Q&A Results</h1>
+        <p>AI-Powered Carbon Management System Assistant</p>
+        <span class="ai-badge">RAG Technology</span>
+    </div>
+    <div class="main-content">
+        <div class="result-section">
+            <h3 class="section-title">❓ Your Question:</h3>
+            <div class="content-box question-box">
+                <p>{{ question }}</p>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <h3 class="section-title">
+                ✅ AI Assistant Answer
+                <span class="confidence-badge">{{ confidence }}%</span>
+            </h3>
+            <div class="content-box answer-box">
+                <p>{{ answer }}</p>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <h3 class="section-title">📚 Sources Used:</h3>
+            <div class="sources">
+                {% if sources %}
+                    {% for s in sources %}
+                        <div class="source-item">
+                            <div><strong>Document:</strong> {{ s.source }}</div>
+                            <div><strong>Page:</strong> {{ s.page if s.page else "n/a" }}</div>
+                            <div><strong>Language:</strong> {{ s.lang if s.lang else "unknown" }}</div>
+                            <div><strong>Score:</strong> {{ ("{:.4f}".format(s.score) if s.score is not none else "n/a") }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No sources available.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/" class="btn btn-primary"><span>🔙</span> Back to Questions</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Powered by Gemini AI • Semantic Search • FastAPI</p>
+        <p>© 2024 Carbon Management System</p>
+    </div>
+</div>
+</body>
+</html>
